@@ -1,0 +1,28 @@
+{
+  "name": "sage-dom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastien-gervilla/sage-dom.git"
+  },
+  "keywords": [
+    "sage", 
+    "javascript", 
+    "dom"
+  ],
+  "author": "sebastien-gervilla (Sébastien Gervilla)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebastien-gervilla/sage-dom/issues"
+  },
+  "homepage": "https://github.com/sebastien-gervilla/sage-dom#readme",
+  "devDependencies": {
+    "@types/node": "^20.4.4",
+    "typescript": "^5.1.6"
+  }
+}
