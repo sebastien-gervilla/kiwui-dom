@@ -2,17 +2,20 @@
   "name": "sage-dom",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "reset:rec": "rmdir /s /q node_modules\\sage-reconciler && npm i"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sebastien-gervilla/sage-dom.git"
   },
   "keywords": [
-    "sage", 
-    "javascript", 
+    "sage",
+    "javascript",
     "dom"
   ],
   "author": "sebastien-gervilla (Sébastien Gervilla)",
@@ -26,6 +29,14 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "sage": "file:../sage"
-  }
+    "sage": "file:../sage",
+    "sage-reconciler": "file:../sage-reconciler"
+  },
+  "dependencies": {
+    "sage-reconciler": "file:../sage-reconciler"
+  },
+  "files": [
+    "dist",
+    "README"
+  ]
 }
