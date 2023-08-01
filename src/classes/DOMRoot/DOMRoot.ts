@@ -9,7 +9,7 @@ export default class DOMRoot {
     constructor(private _container: HTMLElement) {}
 
     render(DOMTree: SageElement) {
-        this._rootFiber = createRootFiber(DOMTree);
+        this._rootFiber = createRootFiber(DOMTree, this.update.bind(this));
 
         const container = this._container;
 
@@ -35,6 +35,9 @@ export default class DOMRoot {
         }
 
         if (fiber instanceof FiberHostText) {
+            console.log(container.textContent);
+            console.log(fiber);
+            
             container.textContent = fiber.content
             return container;
         }
@@ -50,5 +53,30 @@ export default class DOMRoot {
 
         this.renderChild(element, fiber.child);
         return container;
+    }
+
+    update() {
+        console.log(this);
+        
+        const rootFiber = this._rootFiber;
+        if (!rootFiber) 
+            throw new Error('States must be used inside Components.');
+
+        const container = this._container;
+
+        if (!(this._rootFiber instanceof FiberHostElement))
+            throw new Error('Must be DOMElement');
+
+        let element = renderElement(this._rootFiber);
+        if (!element) throw new Error('Must have elements');
+
+        if (this._rootFiber.child)
+            element = this.renderChild(element, this._rootFiber.child);
+
+        console.log(this._rootFiber);
+        console.log(element);
+
+        container.innerHTML = '';
+        container.appendChild(element);
     }
 }
