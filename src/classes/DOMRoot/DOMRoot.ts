@@ -1,5 +1,5 @@
 import { SageElement } from "sage";
-import { Fiber, createRootFiber } from "sage-reconciler";
+import { Fiber, FiberComponent, FiberHostElement, FiberHostText, createRootFiber } from "sage-reconciler";
 import { renderElement } from "../../core";
 
 export default class DOMRoot {
@@ -12,6 +12,9 @@ export default class DOMRoot {
         this._rootFiber = createRootFiber(DOMTree);
 
         const container = this._container;
+
+        if (!(this._rootFiber instanceof FiberHostElement))
+            throw new Error('Must be DOMElement');
 
         let element = renderElement(this._rootFiber);
         if (!element) throw new Error('Must have elements');
@@ -26,10 +29,18 @@ export default class DOMRoot {
     }
 
     private renderChild(container: HTMLElement, fiber: Fiber): HTMLElement {
-        if (fiber.type === 'Component') {
+        while (fiber instanceof FiberComponent) {
             if (!fiber.child) return container;
             fiber = fiber.child;
         }
+
+        if (fiber instanceof FiberHostText) {
+            container.textContent = fiber.content
+            return container;
+        }
+
+        if (!(fiber instanceof FiberHostElement))
+            return container;
 
         const element = renderElement(fiber);
         if (!element) return container;

@@ -1,9 +1,6 @@
-import { Fiber } from "sage-reconciler";
+import { FiberHostElement } from "sage-reconciler";
 
-const renderElement = (fiber: Fiber) => {
-    if (fiber.type !== 'DOMElement')
-        return;
-    
+const renderElement = (fiber: FiberHostElement): HTMLElement => {
     const { tag, props } = fiber;
 
     const element = document.createElement(tag);
@@ -12,7 +9,13 @@ const renderElement = (fiber: Fiber) => {
     for (const [key, value] of Object.entries(props)) {
         if (!value) continue;
 
-        if (typeof value !== 'string' && typeof value !== 'number')
+        if (typeof value === 'function') {
+            if (key.startsWith('on'))
+                element.addEventListener(key.replace('on', '').toLowerCase(), value);
+            continue
+        }
+
+        if (!allowedPropertyTypes.includes(typeof value))
             continue;
 
         element.setAttribute(key, value.toString());
@@ -20,5 +23,10 @@ const renderElement = (fiber: Fiber) => {
 
     return element;
 }
+
+const allowedPropertyTypes = [
+    'string',
+    'number'
+]
 
 export default renderElement;
