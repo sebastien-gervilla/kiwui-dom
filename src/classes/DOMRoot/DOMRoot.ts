@@ -29,29 +29,32 @@ export default class DOMRoot {
     }
 
     private renderChild(container: HTMLElement, fiber: Fiber): HTMLElement {
-        while (fiber instanceof FiberComponent) {
-            if (!fiber.child) return container;
-            fiber = fiber.child;
-        }
-
         if (fiber instanceof FiberHostText) {
-            console.log(container.textContent);
-            console.log(fiber);
-            
             container.textContent = fiber.content
             return container;
         }
 
-        if (!(fiber instanceof FiberHostElement))
-            return container;
+        let nextContainer = container;
+        if (fiber instanceof FiberHostElement) {
+            const element = renderElement(fiber);
+            if (!element) return container;
+            container.appendChild(element);
+            nextContainer = element;
+        }
 
-        const element = renderElement(fiber);
-        if (!element) return container;
+        if (fiber.child)
+            this.renderChild(nextContainer, fiber.child);
 
-        container.appendChild(element);
-        if (!fiber.child) return container;
+        if (fiber.sibling) {
+            let sibling: Fiber | null = fiber.sibling;
+            while (sibling) {
+                container = this.renderChild(container, sibling);
+                console.log(container);
+                
+                sibling = sibling.sibling
+            }
+        }
 
-        this.renderChild(element, fiber.child);
         return container;
     }
 
