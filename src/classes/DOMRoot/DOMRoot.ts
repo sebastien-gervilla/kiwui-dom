@@ -45,15 +45,8 @@ export default class DOMRoot {
         if (fiber.child)
             this.renderChild(nextContainer, fiber.child);
 
-        if (fiber.sibling) {
-            let sibling: Fiber | null = fiber.sibling;
-            while (sibling) {
-                container = this.renderChild(container, sibling);
-                console.log(container);
-                
-                sibling = sibling.sibling
-            }
-        }
+        if (fiber.sibling)
+            container = this.renderChild(container, fiber.sibling);
 
         return container;
     }
