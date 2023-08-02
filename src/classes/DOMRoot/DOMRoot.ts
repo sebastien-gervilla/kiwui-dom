@@ -55,25 +55,25 @@ export default class DOMRoot {
         return container;
     }
 
-    update() {
+    update(newRootFiber: Fiber) {
         console.log(this);
         
-        const rootFiber = this._rootFiber;
+        const rootFiber = newRootFiber;
         if (!rootFiber) 
             throw new Error('States must be used inside Components.');
 
         const container = this._container;
 
-        if (!(this._rootFiber instanceof FiberHostElement))
+        if (!(rootFiber instanceof FiberHostElement))
             throw new Error('Must be DOMElement');
 
-        let element = renderElement(this._rootFiber);
+        let element = renderElement(rootFiber);
         if (!element) throw new Error('Must have elements');
 
-        if (this._rootFiber.child)
-            element = this.renderChild(element, this._rootFiber.child);
+        if (rootFiber.child)
+            element = this.renderChild(element, rootFiber.child);
 
-        console.log(this._rootFiber);
+        console.log(rootFiber);
         console.log(element);
 
         container.innerHTML = '';
