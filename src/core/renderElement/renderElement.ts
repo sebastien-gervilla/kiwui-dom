@@ -9,6 +9,11 @@ const renderElement = (fiber: FiberHostElement): HTMLElement => {
     for (const [key, value] of Object.entries(props)) {
         if (!value) continue;
 
+        if (key === 'className') {
+            element.setAttribute('class', value.toString());
+            continue;
+        }
+
         if (typeof value === 'function') {
             if (key.startsWith('on'))
                 element.addEventListener(key.replace('on', '').toLowerCase(), value);
