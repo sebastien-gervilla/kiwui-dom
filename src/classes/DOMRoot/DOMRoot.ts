@@ -52,12 +52,7 @@ export default class DOMRoot {
     }
 
     update(newRootFiber: Fiber) {
-        console.log(this);
-        
         const rootFiber = newRootFiber;
-        if (!rootFiber) 
-            throw new Error('States must be used inside Components.');
-
         const container = this._container;
 
         if (!(rootFiber instanceof FiberHostElement))
