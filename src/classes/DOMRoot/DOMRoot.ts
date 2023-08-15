@@ -1,73 +1,17 @@
 import { SageElement } from "sage";
-import { Fiber, FiberComponent, FiberHostElement, FiberHostText, createRootFiber } from "sage-reconciler";
-import { renderElement } from "../../core";
+import { FiberHostElement, createFiberRoot, update } from "sage-reconciler";
 
 export default class DOMRoot {
 
-    private _rootFiber: Fiber | null = null;
+    private _rootFiber: FiberHostElement;
 
-    constructor(private _container: HTMLElement) {}
-
-    render(DOMTree: SageElement) {
-        this._rootFiber = createRootFiber(DOMTree, this.update.bind(this));
-
-        const container = this._container;
-
-        if (!(this._rootFiber instanceof FiberHostElement))
-            throw new Error('Must be DOMElement');
-
-        let element = renderElement(this._rootFiber);
-        if (!element) throw new Error('Must have elements');
-
-        if (this._rootFiber.child)
-            element = this.renderChild(element, this._rootFiber.child);
-
-        console.log(this._rootFiber);
-        console.log(element);
-
-        container.appendChild(element);
+    constructor(private _container: HTMLElement) {
+        this._rootFiber = createFiberRoot(this._container);
+        this._rootFiber.node = this._container;
     }
 
-    private renderChild(container: HTMLElement, fiber: Fiber): HTMLElement {
-        if (fiber instanceof FiberHostText) {
-            container.textContent = fiber.content
-            return container;
-        }
-
-        let nextContainer = container;
-        if (fiber instanceof FiberHostElement) {
-            const element = renderElement(fiber);
-            if (!element) return container;
-            container.appendChild(element);
-            nextContainer = element;
-        }
-
-        if (fiber.child)
-            this.renderChild(nextContainer, fiber.child);
-
-        if (fiber.sibling)
-            container = this.renderChild(container, fiber.sibling);
-
-        return container;
-    }
-
-    update(newRootFiber: Fiber) {
-        const rootFiber = newRootFiber;
-        const container = this._container;
-
-        if (!(rootFiber instanceof FiberHostElement))
-            throw new Error('Must be DOMElement');
-
-        let element = renderElement(rootFiber);
-        if (!element) throw new Error('Must have elements');
-
-        if (rootFiber.child)
-            element = this.renderChild(element, rootFiber.child);
-
-        console.log(rootFiber);
-        console.log(element);
-
-        container.innerHTML = '';
-        container.appendChild(element);
+    render(tree: SageElement) {
+        this._rootFiber.props.children = [tree];
+        update(this._rootFiber);
     }
 }
