@@ -8,6 +8,7 @@ export default class DOMRoot {
     constructor(private _container: HTMLElement) {
         this._rootFiber = createFiberRoot(this._container);
         this._rootFiber.node = this._container;
+        this._rootFiber.type = 'Root';
     }
 
     render(tree: SageElement) {
