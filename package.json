@@ -7,7 +7,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "reset:rec": "rmdir /s /q node_modules\\sage-reconciler && npm i"
+    "reset": "rmdir /s /q node_modules && npm i"
   },
   "repository": {
     "type": "git",
