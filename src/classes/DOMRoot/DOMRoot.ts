@@ -1,5 +1,5 @@
-import { SageElement } from "sage";
-import { FiberHostElement, createFiberRoot, update } from "sage-reconciler";
+import { KiwuiElement } from "kiwui";
+import { FiberHostElement, createFiberRoot, update } from "kiwui-reconciler";
 
 export default class DOMRoot {
 
@@ -11,7 +11,7 @@ export default class DOMRoot {
         this._rootFiber.type = 'Root';
     }
 
-    render(tree: SageElement) {
+    render(tree: KiwuiElement) {
         this._rootFiber.props.children = [tree];
         update(this._rootFiber);
     }

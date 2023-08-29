@@ -1,42 +1,49 @@
 {
-  "name": "sage-dom",
+  "name": "kiwui-dom",
   "version": "1.0.0",
-  "description": "",
+  "description": "Kiwui's dom utils",
+  "author": "Sébastien Gervilla (sebastien-gervilla)",
+  "license": "ISC",
+  "keywords": [
+    "kiwui",
+    "javascript",
+    "typescript"
+  ],
+
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+
   "scripts": {
     "build": "tsc",
     "reset": "rmdir /s /q node_modules && npm i"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sebastien-gervilla/sage-dom.git"
+
+  "dependencies": {
+    "kiwui": "file:../kiwui",
+    "kiwui-reconciler": "file:../kiwui-reconciler"
   },
-  "keywords": [
-    "sage",
-    "javascript",
-    "dom"
-  ],
-  "author": "sebastien-gervilla (Sébastien Gervilla)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sebastien-gervilla/sage-dom/issues"
-  },
-  "homepage": "https://github.com/sebastien-gervilla/sage-dom#readme",
   "devDependencies": {
     "@types/node": "^20.4.4",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "sage": "file:../sage",
-    "sage-reconciler": "file:../sage-reconciler"
+    "kiwui": "file:../kiwui",
+    "kiwui-reconciler": "file:../kiwui-reconciler"
   },
-  "dependencies": {
-    "sage-reconciler": "file:../sage-reconciler"
+  
+  "homepage": "https://github.com/sebastien-gervilla/kiwui-dom#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastien-gervilla/kiwui-dom.git"
   },
-  "files": [
-    "dist",
-    "README"
-  ]
+  "bugs": {
+    "url": "https://github.com/sebastien-gervilla/kiwui-dom/issues"
+  }
 }
