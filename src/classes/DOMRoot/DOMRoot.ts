@@ -1,4 +1,4 @@
-import { KiwuiElement } from "kiwui";
+import { KiwuiNode } from "kiwui";
 import { FiberHostElement, createFiberRoot, update } from "kiwui-reconciler";
 
 export default class DOMRoot {
@@ -11,8 +11,8 @@ export default class DOMRoot {
         this._rootFiber.type = 'Root';
     }
 
-    render(tree: KiwuiElement) {
-        this._rootFiber.props.children = [tree];
+    render(tree: KiwuiNode) {
+        this._rootFiber.props.children = tree;
         update(this._rootFiber);
     }
 }
