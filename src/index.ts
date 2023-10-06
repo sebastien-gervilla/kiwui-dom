@@ -1,3 +1,4 @@
 export {
-    createRoot
+    createRoot,
+    createPortal
 } from './core';
