@@ -1,15 +1,15 @@
 {
   "name": "kiwui-dom",
-  "version": "0.1.0",
-  "description": "Kiwui's dom utils",
+  "version": "1.0.0",
+  "description": "Kiwui's DOM API.",
   "author": "Sébastien Gervilla (sebastien-gervilla)",
   "license": "ISC",
   "keywords": [
     "kiwui",
+    "dom",
     "javascript",
     "typescript"
   ],
-
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -19,25 +19,17 @@
     "README.md",
     "LICENSE"
   ],
-
   "scripts": {
-    "build": "tsc",
-    "reset": "rmdir /s /q node_modules && npm i"
+    "build": "tsc"
   },
-
   "dependencies": {
-    "kiwui": "file:../kiwui",
-    "kiwui-reconciler": "file:../kiwui-reconciler"
+    "kiwui": "^1.0.0",
+    "kiwui-reconciler": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.4.4",
     "typescript": "^5.1.6"
   },
-  "peerDependencies": {
-    "kiwui": "file:../kiwui",
-    "kiwui-reconciler": "file:../kiwui-reconciler"
-  },
-  
   "homepage": "https://github.com/sebastien-gervilla/kiwui-dom#readme",
   "repository": {
     "type": "git",
